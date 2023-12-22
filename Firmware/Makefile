@@ -29,7 +29,7 @@ BUILD_DIR = build
 ######################################
 
 # Choose your board mcu F407VG or F411RE
-MCU_TARGET=F407VG
+MCU_TARGET=H563ZI_NUCLEO
 # The directory of mcu target
 TARGET_DIR = Targets/$(MCU_TARGET)
 
@@ -44,7 +44,7 @@ OUTPUT_DIR = $(BUILD_DIR)
 # C sources
 C_SOURCES = $(wildcard $(TARGET_DIR)/Core/Src/*.c)
 C_SOURCES += $(wildcard $(TARGET_DIR)/Core/ThreadSafe/*.c)
-C_SOURCES += $(wildcard $(TARGET_DIR)/Drivers/STM32F4xx_HAL_Driver/Src/*.c)
+C_SOURCES += $(wildcard $(TARGET_DIR)/Drivers/STM32H5xx_HAL_Driver/Src/*.c)
 C_SOURCES += $(wildcard $(TARGET_DIR)/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/*.c)
 C_SOURCES += $(wildcard $(TARGET_DIR)/Middlewares/Third_Party/FreeRTOS/Source/*.c)
 C_SOURCES += $(wildcard $(TARGET_DIR)/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/*.c)
@@ -74,11 +74,13 @@ CPP_SOURCES += $(wildcard $(TARGET_DIR)/Core/Src/*.cpp)
 CPP_SOURCES += $(wildcard FFBoard/UserExtensions/Src/*.cpp)
 
 # ASM sources
-ifeq ($(MCU_TARGET),F411RE)
-ASM_SOURCES = $(TARGET_DIR)/Core/Startup/startup_stm32f411retx.s
-else
-ASM_SOURCES = $(TARGET_DIR)/Core/Startup/startup_stm32f407vgtx.s
-endif
+# ifeq ($(MCU_TARGET),F411RE)
+# ASM_SOURCES = $(TARGET_DIR)/Core/Startup/startup_stm32f411retx.s
+# else ifeq ($(MCU_TARGET),F407VG)
+# ASM_SOURCES = $(TARGET_DIR)/Core/Startup/startup_stm32f407vgtx.s
+# else ifeq ($(MCU_TARGET),H563Z_NUCLEO)
+ASM_SOURCES = $(TARGET_DIR)/EWARM/startup_stm32h563xx.s
+# endif
 
 
 # AS includes
@@ -95,12 +97,12 @@ FFBoard/USB/class/midi \
 FFBoard/USB/class/hid \
 $(TARGET_DIR)/Core/Inc \
 $(TARGET_DIR)/Core/Inc/ThreadSafe \
-$(TARGET_DIR)/Drivers/STM32F4xx_HAL_Driver/Inc \
-$(TARGET_DIR)/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy \
+$(TARGET_DIR)/Drivers/STM32H5xx_HAL_Driver/Inc \
+$(TARGET_DIR)/Drivers/STM32H5xx_HAL_Driver/Inc/Legacy \
 $(TARGET_DIR)/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
 $(TARGET_DIR)/Middlewares/Third_Party/FreeRTOS/Source/include \
 $(TARGET_DIR)/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
-$(TARGET_DIR)/Drivers/CMSIS/Device/ST/STM32F4xx/Include \
+$(TARGET_DIR)/Drivers/CMSIS/Device/ST/STM32H5xx/Include \
 $(TARGET_DIR)/Drivers/CMSIS/Include 
 
 
@@ -151,11 +153,13 @@ AS_DEFS =
 C_DEFS =  \
 -DSTM32_THREAD_SAFE_STRATEGY=4 \
 -DUSE_HAL_DRIVER 
-ifeq ($(MCU_TARGET),F411RE)
-C_DEFS += -DSTM32F411xE
-else
-C_DEFS += -DSTM32F407xx
-endif
+# ifeq ($(MCU_TARGET),F411RE)
+# C_DEFS += -DSTM32F411xE
+# else ifeq ($(MCU_TARGET),F407VG)
+# C_DEFS += -DSTM32F407xx
+# else ifeq ($(MCU_TARGET),H563ZI_NUCLEO)
+C_DEFS += -DSTM32H563xx
+# endif
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
@@ -176,11 +180,12 @@ CXXFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPTCPP) -Wall -fdata-sections -ffunc
 # LDFLAGS
 #######################################
 # link script
-ifeq ($(MCU_TARGET),F407VG_DISCO)
-LDSCRIPT = $(TARGET_DIR)/STM32F407VGTX_FLASH.ld
-else
+# ifeq ($(MCU_TARGET),F407VG_DISCO)
+# LDSCRIPT = $(TARGET_DIR)/STM32F407VGTX_FLASH.ld
+# else
+#kfbtodo this for the h5 (from cube IDE)
 LDSCRIPT = $(TARGET_DIR)/STM32$(MCU_TARGET)TX_FLASH.ld
-endif
+# endif
 
 # libraries
 LIBS = -lc -lm -lnosys 
@@ -243,7 +248,7 @@ flash: $(BUILD_DIR)/$(TARGET).bin
 	STM32_Programmer_CLI -c port=SWD freq=3900 ap=0 -w $(BUILD_DIR)/$(TARGET).elf -rst
 
 upload: $(BUILD_DIR)/$(TARGET).bin
-	openocd -f board/stm32f4discovery.cfg -c "reset_config trst_only combined" -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
+	openocd -f board/stm32h5discovery.cfg -c "reset_config trst_only combined" -c "program $(BUILD_DIR)/$(TARGET).elf verify reset exit"
 
 #######################################
 # dependencies

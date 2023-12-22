@@ -5,7 +5,7 @@
 #include "global_callbacks.h"
 #include "cpp_target_config.h"
 #include "cmsis_os.h"
-#include "stm32f4xx_hal_flash.h"
+#include "stm32h5xx_hal_flash.h"
 
 #include "tusb.h"
 

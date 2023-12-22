@@ -17,7 +17,7 @@
 #include "CAN.h"
 
 extern "C"{
-#include "stm32f4xx_hal_can.h"
+#include "stm32h5xx_hal_can.h"
 }
 
 

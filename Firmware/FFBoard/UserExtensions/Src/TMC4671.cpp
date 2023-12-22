@@ -6,10 +6,10 @@
  */
 
 #include "TMC4671.h"
-#ifdef TMC4671DRIVER
+// #ifdef TMC4671DRIVER
 #include "ledEffects.h"
 #include "voltagesense.h"
-#include "stm32f4xx_hal_spi.h"
+#include "stm32h5xx_hal_spi.h"
 #include <math.h>
 #include <assert.h>
 #include "ErrorHandler.h"

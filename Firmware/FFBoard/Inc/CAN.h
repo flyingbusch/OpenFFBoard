@@ -18,7 +18,7 @@
 #include "CommandHandler.h"
 
 #ifdef STM32F4
-#include "stm32f4xx_hal_can.h"
+#include "stm32h5xx_hal_can.h"
 #define CAN_MAILBOXES 3
 #endif
 

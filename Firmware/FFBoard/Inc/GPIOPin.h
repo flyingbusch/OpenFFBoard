@@ -5,7 +5,7 @@
  *      Author: willson556
  */
 
-#include "stm32f4xx_hal.h"
+#include "stm32h5xx_hal.h"
 #ifndef GPIOPIN_H_
 #define GPIOPIN_H_
 /// For now this class only works with pre-configured output pins but it could be
