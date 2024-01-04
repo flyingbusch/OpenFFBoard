@@ -34,7 +34,8 @@ ClassIdentifier TMC_2::info = {
 
 
 bool TMC_2::isCreatable() {
-	return motor_spi.isPinFree(OutputPin(*SPI1_SS2_GPIO_Port, SPI1_SS2_Pin));
+	// return motor_spi.isPinFree(OutputPin(*SPI1_SS2_GPIO_Port, SPI1_SS2_Pin));
+    return 1;
 }
 
 

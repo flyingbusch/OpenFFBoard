@@ -34,6 +34,7 @@ static const uint8_t SW_VERSION_INT[3] = {1,14,2}; // Version as array. 8 bit ea
 #endif
 
 #ifndef HSPIDRV
+#error "HSPIDRV not def'd"
 #undef TMC4671DRIVER
 #endif
 

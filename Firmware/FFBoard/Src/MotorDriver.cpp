@@ -28,7 +28,7 @@ const std::vector<class_entry<MotorDriver>> MotorDriver::all_drivers =
 
 //		add_class<TMC4671, MotorDriver>(),
 	add_class<TMC_1, MotorDriver>(1),
-	add_class<TMC_2, MotorDriver>(2),
+	// add_class<TMC_2, MotorDriver>(2),
 //		add_class<TMC_3, MotorDriver>(),
 #endif
 #ifdef PWMDRIVER

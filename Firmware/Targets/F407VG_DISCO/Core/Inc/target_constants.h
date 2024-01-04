@@ -41,7 +41,7 @@
 #define SHIFTERBUTTONS
 #define PCF8574BUTTONS // Requires I2C
 #define ANALOGAXES
-//#define TMC4671DRIVER
+#define TMC4671DRIVER
 #define PWMDRIVER
 #define LOCALENCODER
 #define CANBUS
@@ -98,8 +98,8 @@ extern ADC_HandleTypeDef hadc1;
 
 #define BUTTON_PINS 8
 
-//extern SPI_HandleTypeDef hspi1;
-//#define HSPIDRV hspi1
+extern SPI_HandleTypeDef hspi1;
+#define HSPIDRV hspi1
 extern SPI_HandleTypeDef hspi2;
 #define HSPI2 hspi2
 extern SPI_HandleTypeDef hspi3;

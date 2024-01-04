@@ -57,9 +57,9 @@ const std::vector<class_entry<MotorDriver>> Axis::axis2_drivers =
 {
 	add_class<MotorDriver, MotorDriver>(0),
 
-#ifdef TMC4671DRIVER
-	add_class<TMC_2, MotorDriver>(2),
-#endif
+// #ifdef TMC4671DRIVER
+// 	add_class<TMC_2, MotorDriver>(2),
+// #endif
 #ifdef PWMDRIVER
 	add_class<MotorPWM, MotorDriver>(4),
 #endif
